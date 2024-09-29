@@ -36,8 +36,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 *****************************************************************************/
 
+#pragma once
+
 #ifndef ARDUBOY_TONES_H
 #define ARDUBOY_TONES_H
+
+#define TONES_PIN 26
+
+//#define TONES_SERIAL_DEBUG
+
 
 #include <Arduino.h>
 
@@ -82,13 +89,14 @@ THE SOFTWARE.
 // ************************************************************
 
 
-#ifndef AB_DEVKIT
   // ***** SPEAKER ON TWO PINS *****
   // Indicates that each of the speaker leads is attached to a pin, the way
   // the Arduboy is wired. Allows tones of a higher volume to be produced.
   // If commented out only one speaker pin will be used. The other speaker
   // lead should be attached to ground.
-  #define TONES_2_SPEAKER_PINS
+
+#define TONES_2_SPEAKER_PINS
+
   // *******************************
 
   // ***** VOLUME HIGH/NORMAL SUPPORT *****
@@ -97,7 +105,9 @@ THE SOFTWARE.
   // Normal volume is produced by leaving the second pin low.
   // Comment this out for only normal volume support, which will slightly
   // reduce the code size.
-  #define TONES_VOLUME_CONTROL
+
+#define TONES_VOLUME_CONTROL
+
   // **************************************
 
   #ifdef TONES_VOLUME_CONTROL
@@ -117,26 +127,7 @@ THE SOFTWARE.
 
 // This must match the maximum number of tones that can be specified in
 // the tone() function.
-#define MAX_TONES 3
-
-#ifndef AB_DEVKIT
-  // Arduboy speaker pin 1 = Arduino pin 5 = ATmega32u4 PC6
-  #define TONE_PIN_PORT PORTC
-  #define TONE_PIN_DDR DDRC
-  #define TONE_PIN PORTC6
-  #define TONE_PIN_MASK _BV(TONE_PIN)
-  // Arduboy speaker pin 2 = Arduino pin 13 = ATmega32u4 PC7
-  #define TONE_PIN2_PORT PORTC
-  #define TONE_PIN2_DDR DDRC
-  #define TONE_PIN2 PORTC7
-  #define TONE_PIN2_MASK _BV(TONE_PIN2)
-#else
-  // DevKit speaker pin 1 = Arduino pin A2 = ATmega32u4 PF5
-  #define TONE_PIN_PORT PORTF
-  #define TONE_PIN_DDR DDRF
-  #define TONE_PIN PORTF5
-  #define TONE_PIN_MASK _BV(TONE_PIN)
-#endif
+#define MAX_TONES 5
 
 // The minimum frequency that can be produced without a clock prescaler.
 #define MIN_NO_PRESCALE_FREQ ((uint16_t)(((F_CPU / 2L) + (1L << 16) - 1L) / (1L << 16)))
@@ -295,4 +286,3 @@ public:
 
 #include "ArduboyTonesPitches.h"
 
-#endif
